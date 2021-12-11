@@ -1,0 +1,29 @@
+<script>
+        $(document).ready(function(){
+            // $("#city_section").hide();
+            var option = '';
+            option += "<option value=''>Select Country First</option>";
+            $('#country').change(function(){
+            var id = $(this).val();
+            
+                $.ajax({
+                    url: "{{url('getCities/register')}}/"+id,  
+                    type: 'get',
+                    
+                    success: function(response){ 
+                    var len = response.length;
+                    var option = '';
+                        if(len > 0){
+                            for(var i=0; i<len; i++){
+                                var id = response[i].id;
+                                var name = response[i].city;
+                                option += "<option value='"+id+"'>"+name+"</option>"; 
+                            }
+                            $("#city").html(option); 
+                           //  $("#city_section").show();
+                        }
+                    }
+                });
+            });
+        });
+      </script>
